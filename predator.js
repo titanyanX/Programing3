@@ -1,4 +1,5 @@
-class Predator {
+let LiveForm = require('./class')
+module.exports = class Predator extends LiveForm {
     constructor(x, y) {
         this.x = x;
         this.y = y;

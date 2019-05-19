@@ -1,4 +1,5 @@
-class Human {
+let LiveForm = require('./class')
+module.exports = class Human extends LiveForm { 
     constructor(x, y) {
         this.x = x;
         this.y = y;

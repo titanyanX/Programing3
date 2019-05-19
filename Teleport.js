@@ -1,4 +1,6 @@
-class Teleport {
+
+let LiveForm = require('./class')
+module.exports = class Teleport extends LiveForm  {
     constructor(x, y) {
         this.x = x
         this.y = y
