@@ -1,3 +1,9 @@
+xotArr = []
+eatArr = []
+teleportArr = []
+predatorArr = []
+humanArr = []
+
 function genetareMatrix(lengthY, lengthX, number) {
     let matrix = [];
     function getRandomInt(max) {
@@ -13,11 +19,11 @@ function genetareMatrix(lengthY, lengthX, number) {
     return matrix;
 }
 let matrix = genetareMatrix(100, 100, 6);
-var Grass= require('./GRASS')
-var Eatgrass= require('./Eatgrass')
-var Predator= require('./predator')
-var Human= require('./Human')
-var Teleport= require('./Teleport')
+var Grass = require('./GRASS')
+var Eatgrass = require('./Eatgrass')
+var Predator = require('./predator')
+var Human = require('./Human')
+var Teleport = require('./Teleport')
 
 var express = require('express');
 var app = express();
