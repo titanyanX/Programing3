@@ -1,12 +1,7 @@
 let LiveForm = require('./class')
 module.exports = class Eatgrass extends LiveForm {
     constructor(x, y) {
-        this.x = x;
-
-        this.y = y;
-        this.multiply = 0;
-        this.energy = 5;
-        this.directions = [];
+       super(x,y)
     }
     newDirections() {
         this.directions = [
@@ -38,7 +33,7 @@ module.exports = class Eatgrass extends LiveForm {
 
     move() {
         var fundCords = this.getDirections(0);
-        var cord = random(fundCords);
+        var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
 
         if (cord) {
             var x = cord[0];
@@ -51,7 +46,7 @@ module.exports = class Eatgrass extends LiveForm {
     }
     eat() {
         var fundCords = this.getDirections(1);
-        var cord = random(fundCords);
+        var cord = fundCords[Math.floor(Math.random()*fundCords.length)]
         if (cord) {
             var x = cord[0];
             var y = cord[1];
@@ -83,7 +78,7 @@ module.exports = class Eatgrass extends LiveForm {
 
     mul() {
         var fundCords = this.getDirections(0);
-        var cord = random(fundCords);
+        var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
         if (cord) {
             var x = cord[0];
             var y = cord[1];

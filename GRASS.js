@@ -7,7 +7,7 @@ module.exports = class Grass extends LiveForm {
         this.multiply++;
         if (this.multiply == 8) {
             var fundCords = this.getDirections(0);
-            var cord = random(fundCords);
+            var cord = fundCords[Math.floor(Math.random()*fundCords.length)];
             if (cord) {
                 var x = cord[0];
                 var y = cord[1];

@@ -3,22 +3,23 @@ eatArr = []
 teleportArr = []
 predatorArr = []
 humanArr = []
+matrix = [];
 
-function genetareMatrix(lengthY, lengthX, number) {
-    let matrix = [];
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * Math.floor(max));
-    }
-    for (let y = 0; y < lengthY; y++) {
-        matrix.push([]);
-        for (let x = 0; x < lengthX; x++) {
-            let randomCount = getRandomInt(number);
-            matrix[y].push(randomCount);
-        }
-    }
-    return matrix;
-}
-let matrix = genetareMatrix(100, 100, 6);
+matrix = [
+    [0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1],
+    [0, 1, 1, 0, 0, 2, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1],
+    [0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
+    [0, 1, 0, 5, 0, 1, 3, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1],
+    [0, 1, 3, 0, 5, 1, 0, 0, 1, 3, 0, 1, 1, 1, 1, 1, 1],
+    [0, 1, 5, 3, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 1, 0, 0, 1, 3, 0, 1, 1, 1, 1, 1, 1],
+    [0, 3, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1],
+    [0, 0, 5, 0, 5, 1, 3, 5, 1, 0, 0, 1, 1, 1, 1, 1, 1],
+    [0, 3, 0, 3, 0, 1, 0, 0, 1, 3, 0, 1, 1, 1, 1, 1, 1],
+    [2, 0, 3, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [2, 3, 0, 0, 0, 1, 0, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 0, 1, 0, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1],
+];
 var Grass = require('./GRASS')
 var Eatgrass = require('./Eatgrass')
 var Predator = require('./predator')
@@ -29,7 +30,12 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+let season = "Cmer"
+let time = 0
+obj = {
+    'm': matrix,
+    's': season
+}
 app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('index.html');
@@ -37,6 +43,7 @@ app.get('/', function (req, res) {
 server.listen(3000);
 
 function start() {
+
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
             if (matrix[y][x] == 2) {
@@ -64,16 +71,27 @@ function start() {
 }
 start()
 function game() {
-    //յուրաքանչյուր խոտ փորձում է բազմանալ
+    time++
+    if (time <= 30) {
+        obj.s = "garun"
+    }
+    else if (time <= 60) {
+        obj.s = "amar"
+    }
+    else if (time <= 90) {
+        obj.s = "ashun"
+    }
+    else if (time <= 120) {
+        obj.s = "Cmer"
+    }
+    else {
+        time = 0
+    }
     for (var i in xotArr) {
         xotArr[i].mul();
     }
-    //յուրաքանչյուր խոտակեր փորձում է ուտել խոտ
     for (var i in eatArr) {
         eatArr[i].eat();
-    }
-    for (var i in teleportArr) {
-        teleportArr[i].eat();
     }
     for (var i in predatorArr) {
         predatorArr[i].eat();
@@ -81,6 +99,18 @@ function game() {
     for (var i in humanArr) {
         humanArr[i].eat();
     }
-    io.sockets.emit('matrix', matrix)
+    io.sockets.emit('matrix', obj)
 }
 setInterval(game, 1000)
+console.log('server')
+
+io.on("connection", function (socket) {
+    socket.on("valod", function () {
+        humanArr = []
+        predatorArr = []
+        eatArr = []
+        xotArr = []
+
+    })
+})
+

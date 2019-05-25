@@ -1,16 +1,31 @@
 var side = 10;
 var socket = io()
 function setup() {
-    noStroke();
+
     frameRate(1);
-    createCanvas(100 * side, 100 * side);
+    createCanvas(17 * side, 13 * side);
     background('#acacac');
 }
-function drawM() {
+function drawM(obj) {
+    matrix = obj.m;
+    season = obj.s;
     for (var i = 0; i < matrix.length; i++) {
         for (var j = 0; j < matrix[i].length; j++) {
             if (matrix[i][j] == 1) {
-                fill("green");
+
+                if (season == "Cmer") {
+                    fill("white")
+
+                }
+                else if (season == "garun") {
+                    fill("orange")
+
+                }
+
+                else {
+                    fill("green");
+                }
+
             } else if (matrix[i][j] == 2) {
                 fill("orange");
             } else if (matrix[i][j] == 0) {
@@ -31,3 +46,6 @@ function drawM() {
     }
 }
 socket.on('matrix', drawM)
+function MAH() {
+    socket.emit("valod")
+}
