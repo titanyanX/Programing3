@@ -49,3 +49,6 @@ socket.on('matrix', drawM)
 function MAH() {
     socket.emit("valod")
 }
+function MAH1() {
+    socket.emit("valod1")
+}

@@ -106,11 +106,32 @@ console.log('server')
 
 io.on("connection", function (socket) {
     socket.on("valod", function () {
-        humanArr = []
-        predatorArr = []
-        eatArr = []
-        xotArr = []
+      xotArr=[]
+      eatArr=[]
+      predatorArr=[]
+      humanArr=[]
+      for (var y = 0; y< matrix.length; y++) {
+          for (let x = 0; x < matrix.length[0]; x++) {
+            matrix[x][y]=0  
 
+          }
+          
+      }
+    })
+    socket.on("valod1", function () {
+        xotArr=[]
+        eatArr=[]
+        predatorArr=[]
+        humanArr=[]
+      for (var y = 0; y< matrix.length; y++) {
+          for (let x = 0; x < matrix.length[0]; x++) {
+            matrix[x][y]=0  
+                
+          }
+          
+      }
     })
 })
+
+
 
